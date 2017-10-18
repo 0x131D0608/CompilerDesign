@@ -5,7 +5,7 @@ private :
 	int age;
 
 public :
-	void showPeople();
+	float showPeople();
 
 }
 
