@@ -7,7 +7,7 @@ private :
 public :
 	void showPeople();
 
-};
+}
 
 int main() {
 
