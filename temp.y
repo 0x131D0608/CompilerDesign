@@ -98,18 +98,18 @@ VarDecl2 :
 	|	{printf("VarDecl2->NONE\n");}
 	;
 
-
 FuncDecl :
-	  Type ID L_PAR FuncDecl2 R_PAR SEMI	{printf("FuncDecl->TYPE ID ( F2 ) ;\n");}
-	;
-FuncDecl2 :
-	  ParamList	{printf("FuncDecl2->ParamList\n");}
-	|	{printf("FuncDecl2->NONE\n");}
+	  Type ID Func SEMI	{printf("FuncDecl->TYPE ID ( F2 ) ;\n");}
 	;
 
 FuncDef :
-	  Type ID L_PAR FuncDecl2 R_PAR CompoundStmt	{printf("FuncDef->Type ID (F2 ) CompoundStmt\n");}
+	  Type ID Func CompoundStmt	{printf("FuncDef->Type ID (F2 ) CompoundStmt\n");}
 	;
+	
+Func :
+	  L_PAR ParamList R_PAR	{printf("FuncDecl2->ParamList\n");}
+	| L_PAR R_PAR	{printf("FuncDecl2->NONE\n");}
+	;	
 
 ClassMethodList :
 	  ClassMethodDef	{printf("ClassMethodList->ClassMethodDef\n");}
@@ -117,7 +117,7 @@ ClassMethodList :
 	;
 
 ClassMethodDef :
-	  Type ID SCOPE ID L_PAR FuncDecl2 R_PAR CompoundStmt {printf("ClassMethodDef-> Type ID :: ID ( FUncDecl2 ) CompoundStmt\n");}
+	  Type ID SCOPE ID Func CompoundStmt {printf("ClassMethodDef-> Type ID :: ID ( FUncDecl2 ) CompoundStmt\n");}
 	;
 
 MainFunc :

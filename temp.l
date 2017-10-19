@@ -10,6 +10,8 @@
 
 #include "temp.tab.h"
 
+char isUnary = 1;
+
 %}
 
 id		[A-Za-z_][A-Za-z0-9_]*
@@ -24,7 +26,7 @@ space		[ \t\r\n]
 for		{	printf("\nfor\n");
 			return FOR;
 		}
-while		{	printf("\nwhile\n");
+while	{	printf("\nwhile\n");
 			return WHILE;
 		}
 do		{	printf("\ndo\n");
@@ -55,20 +57,25 @@ main		{	printf("\nmain\n");
 			return MAIN;
 		}
 return		{	printf("\nreturn\n");
+			isUnary = 1;
 			return RETURN;
 		}
 {id}		{ 	printf("\n%s\n", yytext);
+			isUnary = 0;
 			return ID;
 		}
 {intnum}	{	printf("\nintnum, %d\n", atoi(yytext));
 			yylval = atoi(yytext);
+			isUnary = 0;
 			return INTNUM;
 		}
 {floatnum}	{	printf("\nfloatnum, %f\n", atof(yytext));
 			yylval = atof(yytext);
+			isUnary = 0;
 			return FLOATNUM;
 		}
 "("		{	printf("\n%s\n", yytext);
+			isUnary = 1;
 			return L_PAR;
 		}
 ")"		{	printf("\n%s\n", yytext);
@@ -81,51 +88,74 @@ return		{	printf("\nreturn\n");
 			return R_PAR2;
 		}
 "["		{	printf("\n%s\n", yytext);
+			isUnary = 1;
 			return L_PAR3;
 		}
 "]"		{	printf("\n%s\n", yytext);
 			return R_PAR3;
 		}
 "*"		{	printf("\n%s\n", yytext);
+			isUnary = 1;
 			return MULT;
 		}
 "/"		{	printf("\n%s\n", yytext);
+			isUnary = 1;
 			return DIVIDE;
 		}
 "+"		{	printf("\n%s\n", yytext);
+			isUnary = 1;
 			return PLUS;
 		}
-"-"		{	printf("\n%s\n", yytext);
-			return MINUS;
+"-"		{	printf("%d\n", isUnary);
+			if (isUnary) {
+				
+				printf("\nunary -\n");
+				return UMINUS;
+			}
+			else {
+				
+				printf("\n%s\n", yytext);
+				isUnary = 1;
+				return MINUS;
+			}
 		}
 "<"		{	printf("\n%s\n", yytext);
+			isUnary = 1;
 			return LT;
 		}
 ">"		{	printf("\n%s\n", yytext);
+			isUnary = 1;
 			return GT;
 		}
 "<="		{	printf("\n%s\n", yytext);
+			isUnary = 1;
 			return LTE;
 		}
 ">="		{	printf("\n%s\n", yytext);
+			isUnary = 1;
 			return GTE;
 		}
 "=="		{	printf("\n%s\n", yytext);
+			isUnary = 1;
 			return EQ;
 		}	
 "!="		{	printf("\n%s\n", yytext);
+			isUnary = 1;
 			return NEQ;
 		}
 "="		{	printf("\n%s\n", yytext);
+			isUnary = 1;
 			return ASSIGN;
 		}
 ";"		{	printf("\n%s\n", yytext);
+			isUnary = 1;
 			return SEMI;
 		}
 "."		{	printf("\n%s\n", yytext);
 			return DOT;
 		}
 ","		{	printf("\n%s\n", yytext);
+			isUnary = 1;
 			return COMMA;
 		}
 ":"		{	printf("\n%s\n", yytext);
@@ -150,7 +180,7 @@ int main() {
 
 	return 0;
 }
-
 */
+
 
 

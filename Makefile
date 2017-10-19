@@ -10,8 +10,8 @@ all1:
 	#./temp.out ex3.cpp
 	#cat ex4.cpp
 	#./temp.out ex4.cpp
-	cat ex5.cpp
-	./temp.out ex5.cpp
+	cat ex6.cpp
+	./temp.out ex6.cpp
 
 all2:
 	flex test.l
